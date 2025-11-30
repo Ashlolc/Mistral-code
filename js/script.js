@@ -43,6 +43,10 @@ document.getElementById('sendButton').addEventListener('click', async function()
         const apiKey = sessionStorage.getItem('apiKey');
         const chatEndpoint = sessionStorage.getItem('chatEndpoint');
 
+        // Show loading message
+        chatMessages.innerHTML += `<p><strong>Codestral:</strong> <em>Thinking...</em></p>`;
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
         try {
             const response = await fetch(chatEndpoint, {
                 method: 'POST',
@@ -56,12 +60,18 @@ document.getElementById('sendButton').addEventListener('click', async function()
                 }),
             });
 
+            // Remove loading message
+            const messages = chatMessages.querySelectorAll('p');
+            messages[messages.length - 1].remove();
+
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                const errorText = await response.text();
+                console.error('API Error Response:', errorText);
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
             }
 
             const data = await response.json();
-            console.log('Response from Codestral API:', data); // Debugging line
+            console.log('Response from Codestral API:', data);
 
             // Check the structure of the response
             if (data.choices && data.choices.length > 0 && data.choices[0].message) {
@@ -74,8 +84,32 @@ document.getElementById('sendButton').addEventListener('click', async function()
 
             chatMessages.scrollTop = chatMessages.scrollHeight;
         } catch (error) {
+            // Remove loading message if still there
+            const messages = chatMessages.querySelectorAll('p');
+            const lastMessage = messages[messages.length - 1];
+            if (lastMessage && lastMessage.innerHTML.includes('Thinking...')) {
+                lastMessage.remove();
+            }
+
             console.error('Error fetching data from Codestral API:', error);
-            chatMessages.innerHTML += `<p><strong>Codestral:</strong> Error fetching response. Please try again.</p>`;
+            
+            // Provide more specific error messages
+            let errorMessage = 'Error: ';
+            if (error.message.includes('Failed to fetch')) {
+                errorMessage += 'CORS blocked or network error. This API may not allow browser requests. Check console for details.';
+            } else if (error.message.includes('401')) {
+                errorMessage += 'Invalid API key. Please check your API key and try again.';
+            } else if (error.message.includes('403')) {
+                errorMessage += 'Access forbidden. Your API key may not have permission for this endpoint.';
+            } else if (error.message.includes('429')) {
+                errorMessage += 'Rate limit exceeded. Please wait a moment and try again.';
+            } else if (error.message.includes('500') || error.message.includes('502') || error.message.includes('503')) {
+                errorMessage += 'Server error. Mistral API may be experiencing issues. Try again later.';
+            } else {
+                errorMessage += error.message;
+            }
+
+            chatMessages.innerHTML += `<p><strong>Codestral:</strong> ${errorMessage}</p>`;
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
     }
