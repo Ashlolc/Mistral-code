@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mistral API Configurator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Mistral API Configurator</h1>
+        <form id="apiForm">
+            <div class="form-group">
+                <label for="htmlKey">HTML Key:</label>
+                <input type="text" id="htmlKey" name="htmlKey" required>
+            </div>
+            <div class="form-group">
+                <label for="chatEndpoint">Chat Endpoint:</label>
+                <input type="text" id="chatEndpoint" name="chatEndpoint" required>
+            </div>
+            <div class="form-group">
+                <label for="completionEndpoint">Completion Endpoint:</label>
+                <input type="text" id="completionEndpoint" name="completionEndpoint" required>
+            </div>
+            <button type="submit">Save</button>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
