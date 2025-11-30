@@ -32,18 +32,44 @@ document.getElementById('chatButton').addEventListener('click', function() {
 });
 
 // Handle sending messages in the chat interface
-document.getElementById('sendButton').addEventListener('click', function() {
+document.getElementById('sendButton').addEventListener('click', async function() {
     const userInput = document.getElementById('userInput').value;
     if (userInput.trim() !== '') {
         const chatMessages = document.getElementById('chatMessages');
         chatMessages.innerHTML += `<p><strong>You:</strong> ${userInput}</p>`;
         document.getElementById('userInput').value = '';
 
-        // Simulate a response from Codestral
-        setTimeout(function() {
-            chatMessages.innerHTML += `<p><strong>Codestral:</strong> This is a simulated response to: "${userInput}"</p>`;
+        // Get the API key and endpoint from session storage
+        const apiKey = sessionStorage.getItem('apiKey');
+        const chatEndpoint = sessionStorage.getItem('chatEndpoint');
+
+        try {
+            const response = await fetch(chatEndpoint, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${apiKey}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    model: 'codestral-latest',
+                    messages: [{ role: 'user', content: userInput }],
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            const codestralResponse = data.choices[0].message.content;
+
+            chatMessages.innerHTML += `<p><strong>Codestral:</strong> ${codestralResponse}</p>`;
             chatMessages.scrollTop = chatMessages.scrollHeight;
-        }, 1000);
+        } catch (error) {
+            console.error('Error fetching data from Codestral API:', error);
+            chatMessages.innerHTML += `<p><strong>Codestral:</strong> Error fetching response. Please try again.</p>`;
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
     }
 });
 
