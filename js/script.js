@@ -261,3 +261,4 @@ console.log(`[Frontend] Backend URL: ${BACKEND_URL}`);
     console.warn('[Frontend] Could not reach backend server');
   }
 })();
+
