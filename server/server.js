@@ -17,7 +17,7 @@ const { createSession, getSession, deleteSession, getStats } = require('./utils/
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const FRONTEND_URL = process.env.FRONTEND_URL || 'https://ashlolc.github.io';
+const FRONTEND_URL = process.env.FRONTEND_URL || 'https://ashlolc.github.io/Mistral-code/';
 
 // ============================================================================
 // Middleware Configuration
