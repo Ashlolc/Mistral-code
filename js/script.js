@@ -12,9 +12,21 @@ document.getElementById('apiForm').addEventListener('submit', function(event) {
     // Fade out the form
     document.getElementById('apiForm').classList.add('fadeOut');
 
-    // Show the chat container after the form fades out
+    // Show the chat button after the form fades out
     setTimeout(function() {
         document.getElementById('apiForm').style.display = 'none';
+        document.getElementById('chatButton').classList.remove('hidden');
+    }, 500);
+});
+
+// Handle clicking the chat button
+document.getElementById('chatButton').addEventListener('click', function() {
+    // Fade out the chat button
+    document.getElementById('chatButton').classList.add('fadeOut');
+
+    // Show the chat container after the button fades out
+    setTimeout(function() {
+        document.getElementById('chatButton').style.display = 'none';
         document.getElementById('chatContainer').classList.remove('hidden');
     }, 500);
 });
