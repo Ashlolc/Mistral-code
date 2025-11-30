@@ -74,7 +74,71 @@ button:hover {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
+#chatContainer {
+    margin-top: 24px;
+}
+
+#chatBox {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 16px;
+    background-color: #f9f9f9;
+}
+
+#chatMessages {
+    height: 300px;
+    overflow-y: auto;
+    margin-bottom: 16px;
+    border: 1px solid #ddd;
+    padding: 12px;
+    border-radius: 4px;
+}
+
+#userInput {
+    width: calc(100% - 80px);
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+#sendButton {
+    width: 60px;
+    margin-left: 10px;
+}
+
+#codeEnvironment {
+    margin-top: 24px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 16px;
+    background-color: #f9f9f9;
+}
+
+#codeOutput {
+    height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding: 12px;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+.hidden {
+    display: none;
+}
+
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+.fadeOut {
+    animation: fadeOut 0.5s forwards;
 }
