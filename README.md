@@ -1,5 +1,7 @@
 # Mistral API Configurator 🚀
 
+## 🌐 **[Launch App →](https://ashlolc.github.io/Mistral-code/)**
+
 A web-based interface for interacting with Mistral's Codestral API. Configure your API credentials and chat with Codestral directly in your browser.
 
 ## Features ✨
