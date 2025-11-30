@@ -258,8 +258,10 @@ console.log(`[Frontend] Frontend URL: ${FRONTEND_URL}`);
     
     if (response.ok) {
       console.log('[Frontend] Backend server is reachable');
+    } else {
+      console.error('[Frontend] Backend server responded with an error:', response.status);
     }
   } catch (error) {
-    console.warn('[Frontend] Could not reach backend server');
+    console.warn('[Frontend] Could not reach backend server:', error);
   }
 })();
