@@ -61,9 +61,17 @@ document.getElementById('sendButton').addEventListener('click', async function()
             }
 
             const data = await response.json();
-            const codestralResponse = data.choices[0].message.content;
+            console.log('Response from Codestral API:', data); // Debugging line
 
-            chatMessages.innerHTML += `<p><strong>Codestral:</strong> ${codestralResponse}</p>`;
+            // Check the structure of the response
+            if (data.choices && data.choices.length > 0 && data.choices[0].message) {
+                const codestralResponse = data.choices[0].message.content;
+                chatMessages.innerHTML += `<p><strong>Codestral:</strong> ${codestralResponse}</p>`;
+            } else {
+                chatMessages.innerHTML += `<p><strong>Codestral:</strong> Unexpected response format. Check the console for details.</p>`;
+                console.error('Unexpected response format:', data);
+            }
+
             chatMessages.scrollTop = chatMessages.scrollHeight;
         } catch (error) {
             console.error('Error fetching data from Codestral API:', error);
