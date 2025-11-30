@@ -13,7 +13,7 @@
 // ============================================================================
 
 // Backend server URL - update this when deployed
-const BACKEND_URL = 'http://localhost:3000'; // Change to your deployed backend URL
+const BACKEND_URL = 'https://tantalisingly-uncombatable-zetta.ngrok-free.dev'; // ngrok tunnel to local server
 
 // ============================================================================
 // DOM Elements
