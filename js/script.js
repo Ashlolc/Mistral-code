@@ -1,10 +1,10 @@
 /**
  * Mistral Codestral Chat Frontend
- * 
+ *
  * This frontend securely communicates with a backend server that handles
  * API key encryption and Mistral API calls. API keys are never stored in
  * the browser - only a secure session cookie is used.
- * 
+ *
  * Created by: Ashlolc, Perplexity, and Mistral
  */
 
@@ -261,4 +261,3 @@ console.log(`[Frontend] Backend URL: ${BACKEND_URL}`);
     console.warn('[Frontend] Could not reach backend server');
   }
 })();
-
